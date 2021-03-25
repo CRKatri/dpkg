@@ -230,6 +230,14 @@ vmaintscript_installed(struct pkginfo *pkg, const char *scriptname,
 	command_add_arg(&cmd, scriptname);
 	command_add_argv(&cmd, args);
 
+	if (f_noscripts) {
+		command_destroy(&cmd);
+		debug(dbg_scripts,
+		      "vmaintscript_installed skipping %s",
+		      scriptname);
+		free(buf);
+		return 0;
+	}
 	if (stat(scriptpath, &stab)) {
 		command_destroy(&cmd);
 
@@ -306,6 +314,14 @@ maintscript_new(struct pkginfo *pkg, const char *scriptname,
 	command_add_argv(&cmd, args);
 	va_end(args);
 
+	if (f_noscripts) {
+		command_destroy(&cmd);
+		debug(dbg_scripts,
+		      "maintscript_new skipping %s",
+		      scriptname);
+		free(buf);
+		return 0;
+	}
 	if (stat(cidir, &stab)) {
 		command_destroy(&cmd);
 
@@ -347,6 +363,14 @@ maintscript_fallback(struct pkginfo *pkg,
 	                 versiondescribe(&pkg->available.version, vdew_nonambig),
 	                 NULL);
 
+	if (f_noscripts) {
+		debug(dbg_scripts,
+		      "maintscript_fallback skipping %s",
+		      scriptname);
+		command_destroy(&cmd);
+		free(buf);
+		return 0;
+	}
 	if (stat(oldscriptpath, &stab)) {
 		if (errno == ENOENT) {
 			debug(dbg_scripts,

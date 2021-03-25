@@ -1023,6 +1023,10 @@ output will be modified to make it easier to parse.
 
 The only currently supported command is B<--version>.
 
+=item B<--no-scripts>
+
+Skips the running of maintainer scripts but still marks the package as fully installed
+
 =item B<--no-pager>
 
 Disables the use of any pager when showing information (since dpkg 1.19.2).

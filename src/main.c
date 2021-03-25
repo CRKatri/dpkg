@@ -171,6 +171,7 @@ usage(const struct cmdinfo *ci, const char *value)
 "  --refuse-<thing>[,...]     Ditto.\n"
 "  --abort-after <n>          Abort after encountering <n> errors.\n"
 "  --robot                    Use machine-readable output on some commands.\n"
+"  --no-scripts               Do not run any maintainer scripts\n"
 "\n"), ADMINDIR);
 
   printf(_(
@@ -198,6 +199,7 @@ static const char printforhelp[] = N_(
 "Options marked [*] produce a lot of output - pipe it through 'less' or 'more' !");
 
 int f_robot = 0;
+int f_noscripts = 0;
 int f_pending=0, f_recursive=0, f_alsoselect=1, f_skipsame=0, f_noact=0;
 int f_autodeconf=0, f_nodebsig=0;
 int f_triggers = 0;
@@ -607,6 +609,7 @@ static const struct cmdinfo cmdinfos[]= {
   { "skip-same-version", 'E', 0, &f_skipsame,   NULL,      NULL,    1 },
   { "auto-deconfigure",  'B', 0, &f_autodeconf, NULL,      NULL,    1 },
   { "robot",             0,   0, &f_robot,      NULL,      NULL,    1 },
+  { "no-scripts",        0,   0, &f_noscripts,  NULL,      NULL,    1 },
   { "root",              0,   1, NULL,          NULL,      set_root,      0 },
   { "abort-after",       0,   1, &errabort,     NULL,      set_integer,   0 },
   { "admindir",          0,   1, NULL,          &admindir, NULL,          0 },
